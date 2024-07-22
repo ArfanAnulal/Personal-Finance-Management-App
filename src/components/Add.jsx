@@ -6,38 +6,35 @@ import 'dayjs/locale/en-gb';
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
  
 var email
 const Add = () => {
   var navigate = useNavigate()
 
+
+  let date = new Date()  //for update, first take date using useEffect, then add condition 
+  const [value, setValue] = useState(dayjs(date));
+
+  var [inputs, setInputs] = useState({Amount:'',Category:'',Date:null,Description:'',Email:''});
+  const inputHandler=(e)=>{
+     setInputs({...inputs,[e.target.name]:e.target.value})
+     console.log(inputs)
+   }
+ 
+
+
+const addHandler=()=>{
   try {
     email = localStorage.getItem('email')
    console.log("Hiiii machane 2 "+email)
 } catch (error) {
    console.log(error)
 }
-var [inputs, setInputs] = useState({Amount:'',Category:'',Date:null,Description:'',Email:''});
-const inputHandler=(e)=>{
-  setInputs({...inputs,[e.target.name]:e.target.value})
-  console.log(inputs)
-}
-
-
-
-
-const setDate=(value)=>{
-       var date = ''
-       date+=value.$D+'/'
-      date+=((value.$M)+1)+'/'
-      date+=value.$y
-      console.log(date)
-      inputs.Date=date
-    
-}
-const addHandler=()=>{
   inputs.Email= email
-axios.post("http://localhost:1880/add_pfm",inputs)
+  inputs.Date= value
+  console.log(inputs);
+  axios.post("http://localhost:1880/add_pfm",inputs)
         .then((res)=>{
             console.log(res)
             alert(res.data.message)
@@ -50,21 +47,37 @@ axios.post("http://localhost:1880/add_pfm",inputs)
       }
 
 
+//   try {
+//     email = localStorage.getItem('email')
+//    console.log("Hiiii machane 2 "+email)
+// } catch (error) {
+//    console.log(error)
+// }
 
 
-    // const[date1,setDate] = useState('')
-    // const [value,setValue] = useState(null);
-    // if (value!=null){
-    //     const date = []
-    //     date.push(value.$D)
-    //     date.push((value.$M)+1)
-    //     date.push(value.$y)
-    //     console.log(date)
-        
-    // }
+// const setDate=(value)=>{
+//        var date = ''
+//        date+=value.$D+'/'
+//       date+=((value.$M)+1)+'/'
+//       date+=value.$y
+//       console.log(date)
+//       inputs.Date=date
+    
+// }
 
 
-  
+// const[date1,setDate] = useState('')
+// const [value,setValue] = useState(null);
+// if (value!=null){
+//     const date = []
+//     date.push(value.$D)
+//     date.push((value.$M)+1)
+//     date.push(value.$y)
+//     console.log(date)
+    
+// }
+
+
 
   return (
     <div>
@@ -94,10 +107,10 @@ axios.post("http://localhost:1880/add_pfm",inputs)
          <DatePicker
           label='Select Date'
           name='Date'
-          // value={inputs.Date}
+          value={value}
           
-          slotProps={{ textField: { variant: 'outlined' } }}
-          onChange={setDate}
+          // slotProps={{ textField: { variant: 'outlined' } }}
+          onChange={(newValue)=>setValue(newValue)}
          />
       </LocalizationProvider> 
       <br /><br />

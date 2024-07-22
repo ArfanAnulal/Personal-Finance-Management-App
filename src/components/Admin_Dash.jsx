@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 const Admin_Dash = () => {
   return (
     <div style={{textAlign:'center', marginTop:'10%'}}>
-      <Button variant='contained' color='primary'>
+      <Button variant='contained' color='primary' size='large'>
        <Link to={'/admin_UM'} style={{textDecoration:'none',color:'white'}}>Manage Users</Link>
       </Button>
       <br /><br />
-      <Button variant='contained' color='primary'>
+      <Button variant='contained' color='primary' size='large'>
        <Link to={'/admin_EM'} style={{textDecoration:'none',color:'white'}}>Manage User Expenses</Link>
       </Button>
     </div>
