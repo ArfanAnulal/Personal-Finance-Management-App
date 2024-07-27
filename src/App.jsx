@@ -9,8 +9,8 @@ import Add from './components/Add'
 import Admin_User_Manage from './components/Admin_User_Manage'
 import Admin_Expense_Manage from './components/Admin_Expense_Manage'
 import Admin_Dash from './components/Admin_Dash'
-import Passworddots from './test/Passworddots'
-import Signuptest1 from './test/Signuptest1'
+//import Passworddots from './test/Passworddots'
+//import Signuptest1 from './test/Signuptest1'
 
 function App() {
 
