@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Box,Grid ,Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -45,16 +45,22 @@ const Admin_Expense_Manage = () => {
     }
 
   return (
-    <div style={{ height: 607, width: '90%' ,marginTop:'5.3%',marginLeft:'8%'}}>
-      <TableContainer>
-        <Table>
+    <Box
+      sx={{
+        mt: { sm: '11%', md: '6%' }
+      }}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={12} sm={10} md={8} lg={6}>
+      <TableContainer sx={{ maxHeight: 607,minWidth:900 }}>
+        <Table stickyHeader>
             <TableHead>
                 <TableRow>
                     <TableCell>Email</TableCell>
-                    <TableCell>Amount</TableCell>
+                    <TableCell >Amount</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Description</TableCell>
-                    <TableCell style={{paddingLeft:'6.3%'}} width={15}>
+                    <TableCell align="center" colSpan={2}>
                             <Button variant='contained' color='success' size='large'>
                                 <Link to={'/add'} style={{textDecoration:'none', color:'white'}}>Add</Link>   
                             </Button>
@@ -87,11 +93,11 @@ const Admin_Expense_Manage = () => {
                 
                 )})}
             </TableBody>
-
-
         </Table>
       </TableContainer>
-    </div>
+      </Grid>
+      </Grid>
+      </Box>
   )
 }
 

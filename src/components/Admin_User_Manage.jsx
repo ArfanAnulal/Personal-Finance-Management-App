@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Box, Grid,Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -32,16 +32,22 @@ const Admin_User_Manage = () => {
     }
 
   return (
-    <div style={{ height: 607, width: '70%' ,marginTop:'5.3%',marginLeft:'15%'}}>
-      <TableContainer>
-        <Table>
+  <Box
+      sx={{
+        mt: { sm: '11%', md: '6%' }
+      }}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={12} sm={10} md={8} lg={6}>      
+      <TableContainer sx={{ maxHeight: 607,minWidth:900 }}>
+        <Table stickyHeader>
             <TableHead>
                 <TableRow>
                     <TableCell>ID</TableCell>
                     <TableCell>Username</TableCell>
                     <TableCell>Email</TableCell>
                     {/* <TableCell></TableCell> */}
-                    <TableCell style={{paddingLeft:'7.8%'}} width={15}>
+                    <TableCell align="center" colSpan={2}>
                             <Button variant='contained' color='success' size='large'>
                                 <Link to={'/add'} style={{textDecoration:'none', color:'white'}}>Add</Link>   
                             </Button>
@@ -76,7 +82,9 @@ const Admin_User_Manage = () => {
 
         </Table>
       </TableContainer>
-    </div>
+      </Grid>
+      </Grid>
+    </Box>
   )
 }
 

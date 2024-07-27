@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {Button,Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid } from '@mui/material';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 var email
 const UserDash = () => {
+
+
 
     function isoStringToDate(isoString) {
         // Split the ISO string into date and time parts
@@ -70,51 +72,54 @@ const UserDash = () => {
 
 
   return (
-      <div style={{ height: 607, width: '70%' ,marginTop:'5.3%',marginLeft:'15%'}}>
-        <TableContainer>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Amount</TableCell>
-                        <TableCell>Category</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell  style={{paddingLeft:'125px'}} width={15}>
-                            <Button variant='contained' color='success' size='large'>
-                                <Link to={'/add'} style={{textDecoration:'none', color:'white'}}>Add</Link>   
-                            </Button>
-                        </TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                </TableHead>
+    <Box
+      sx={{
+        mt: { sm: '11%', md: '6%' }
+      }}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={12} sm={10} md={8} lg={6}>
+          <TableContainer sx={{ maxHeight: 607,minWidth:900 }}>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Amount</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell align="center" colSpan={2}>
+                    <Button variant="contained" color="success" size="large">
+                      <Link to="/add" style={{ textDecoration: 'none', color: 'white' }}>Add</Link>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
 
-                <TableBody>
-
-                {user_pfm.map((val,i)=>{
-                    return(
-                    <TableRow key={i}>
-                        <TableCell>{val.Amount}</TableCell>
-                        <TableCell>{val.Category}</TableCell>
-                        <TableCell>{isoStringToDate(val.Date)}</TableCell>
-                        <TableCell>{val.Description}</TableCell>
-                        <TableCell>
-                            <Button variant='contained' color='primary'>
-                                Update
-                            </Button>
-                        </TableCell>
-                        <TableCell>
-                            <Button variant='contained' color='error' onClick={()=>{delValue(val._id)}}>
-                                Delete
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-                )})}
-                    
-                </TableBody>
+              <TableBody>
+                {user_pfm.map((val, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{val.Amount}</TableCell>
+                    <TableCell>{val.Category}</TableCell>
+                    <TableCell>{isoStringToDate(val.Date)}</TableCell>
+                    <TableCell>{val.Description}</TableCell>
+                    <TableCell>
+                      <Button variant="contained" color="primary">
+                        Update
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="contained" color="error" onClick={() => delValue(val._id)}>
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
             </Table>
-        </TableContainer>
-      
-    </div>
+          </TableContainer>
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
 

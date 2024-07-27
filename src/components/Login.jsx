@@ -1,4 +1,5 @@
-import { Button, Collapse, FormControl, IconButton, InputAdornment, InputLabel, Modal, OutlinedInput, TextField, Typography } from '@mui/material'
+import { Paper,Button, Collapse, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography, Grid } from '@mui/material'
+import { useMediaQuery } from '@mui/material';
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +11,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 const Login = () => {
   var navigate = useNavigate()
 
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   const [alertf, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
@@ -62,23 +64,42 @@ const Login = () => {
   }
     
   return (
-    <div >
-      
-    <div style={{textAlign:'center', marginTop:'8%', marginRight:'40%',marginLeft:'40%'}}>
-    <Collapse in={alertState}>
-      {alertf ? <Alert action={<IconButton onClick={()=>{setAlertState(false)}} style={{marginBottom:'-10%'}}><CloseIcon></CloseIcon></IconButton>} severity='error' size>{alertContent}</Alert> : <></> }
-      </Collapse>
-      <br /><br />
-      <Typography variant='h3' style={{fontFamily:'times'}}>Login</Typography>
-      <br /><br />
-      <TextField variant='outlined' label='Email' onChange={inputHandler} name='Email' value={inputs.Email} sx={{ m: 1, width: '30ch' }}/>
-      <br /><br />
-      <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+      <Grid item xs={10} sm={8} md={6} lg={4} xl={3} style={{ textAlign: 'center' }}>
+      <Paper sx={{backgroundColor:'#dcdcdc', marginLeft:'5%',marginRight:'5%'}} elevation={15} >
+        <Collapse in={alertState}>
+          {alertf && (
+            <Alert
+              action={
+                <IconButton onClick={() => setAlertState(false)} style={{ marginBottom: '-10%' }}>
+                  <CloseIcon />
+                </IconButton>
+              }
+              severity="error"
+            >
+              {alertContent}
+            </Alert>
+          )}
+        </Collapse>
+        <br /><br />
+        <Typography variant="h3" style={{ fontFamily: 'times', paddingTop:'2%' }}>Login</Typography>
+        <br /><br />
+        <TextField
+          variant="outlined"
+          label="Email"
+          onChange={inputHandler}
+          name="Email"
+          value={inputs.Email}
+          fullWidth
+          sx={{ m: 1, width: isSmallScreen ? '100%' : '30ch' }}
+        />
+        <br /><br />
+        <FormControl fullWidth sx={{ m: 1, width: isSmallScreen ? '100%' : '30ch' }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
-            name='Password'
+            name="Password"
             onChange={inputHandler}
             endAdornment={
               <InputAdornment position="end">
@@ -95,11 +116,17 @@ const Login = () => {
             label="Password"
           />
         </FormControl>
-      <br /><br />
-      <Button variant='contained' onClick={loginHandler} style={{backgroundColor:'#183e4b',fontFamily:'times', borderRadius:'2rem'}}>Log In</Button>
-      
-    </div> 
-    </div>
+        <br /><br />
+        <Button
+          variant="contained"
+          onClick={loginHandler}
+          style={{ backgroundColor: '#183e4b', fontFamily: 'times', borderRadius: '2rem',marginBottom:'5%'  }}
+        >
+          Log In
+        </Button>
+        </Paper>
+      </Grid>
+    </Grid>
   )
 }
 
