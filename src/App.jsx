@@ -26,7 +26,7 @@ function App() {
         <Route path='/admin_dash' element={<Admin_Dash/>}/>
         <Route path='/admin_UM' element={<Admin_User_Manage/>}/>
         <Route path='/admin_EM' element={<Admin_Expense_Manage/>}/>
-        <Route path='/test' element={<Signuptest1/>}/>
+        {/*<Route path='/test' element={<Signuptest1/>}/>*/}
       </Routes>
     </>
   )
