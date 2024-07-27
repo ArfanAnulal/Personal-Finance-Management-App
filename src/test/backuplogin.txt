@@ -1,0 +1,54 @@
+import { Button, TextField, Typography } from '@mui/material'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import UserDash from './UserDash'
+
+const Login = () => {
+  
+  const[inputs,setInputs] = useState({Email:'',Password:''})
+  var navigate = useNavigate()
+
+  const inputHandler=(e)=>{
+    setInputs({...inputs,[e.target.name]:e.target.value})
+    console.log(inputs)
+  }
+
+
+  const loginHandler=()=>{
+     axios.post("http://localhost:1880/login",inputs)
+        .then((res)=>{
+            console.log(res)
+            alert(res.data.message)
+            if (res.data.message == "success"){
+              
+              var email = res.data.email
+              console.log("The email is "+email);
+              localStorage.setItem('email',email)
+              navigate('/userdash')
+            }
+            else{
+              navigate('/login')
+            }
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
+  }
+    
+  return (
+    <div >
+    <div style={{textAlign:'center', marginTop:'10%'}}>
+      <Typography variant='h3' style={{fontFamily:'times'}}>Login</Typography>
+      <br /><br />
+      <TextField variant='outlined' label='Email' onChange={inputHandler} name='Email' value={inputs.Email}/>
+      <br /><br />
+      <TextField variant='outlined' label='Password' onChange={inputHandler} name='Password' value={inputs.Password}/>
+      <br /><br />
+      <Button variant='contained' onClick={loginHandler} style={{backgroundColor:'#183e4b',fontFamily:'times', borderRadius:'2rem'}}>Log In</Button>
+    </div> 
+    </div>
+  )
+}
+
+export default Login
