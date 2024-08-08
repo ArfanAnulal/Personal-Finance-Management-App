@@ -1,8 +1,3 @@
-# React + Vite
+The Personal Finance Management App project was a significant learning experience and a successful endeavor. The project delivered a functional web application that meets the requirements for managing personal finances, including tracking income and expenses, setting budgets, and achieving financial goals. The team gained valuable experience in full-stack development, UI/UX design, and project management. Future enhancements could include additional features such as advanced reporting, integration with banking APIs, improved budget and goal-setting tools, and enhanced security measures.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://financio-mu.vercel.app/
