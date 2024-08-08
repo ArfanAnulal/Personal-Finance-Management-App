@@ -113,7 +113,7 @@ const Admin_login = () => {
           <Button
             variant="contained"
             onClick={loginHandler}
-            style={{ backgroundColor: '#183e4b', fontFamily: 'times', borderRadius: '2rem', marginBottom: '1rem', width: '30%', padding: '0.75rem', fontSize: '1rem' }}
+            style={{ backgroundColor: '#183e4b', fontFamily: 'times', borderRadius: '2rem', marginBottom: '1rem', width: '50%', padding: '0.75rem', fontSize: '1rem' }}
           >
             Log In
           </Button>
