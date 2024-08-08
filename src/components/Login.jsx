@@ -10,14 +10,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 const Login = () => {
   
   const navigate = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem('email') !== 'null' && localStorage.getItem('email') !=='Admin') {
-      navigate('/userdash')
-    }
-    else if(localStorage.getItem('email')=='Admin'){
-      navigate('/admin_dash')
-    }
-  }, []);
+
 
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
