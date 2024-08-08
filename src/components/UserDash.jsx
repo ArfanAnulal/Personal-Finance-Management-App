@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {Button,Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid } from '@mui/material';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import UpdateIcon from '@mui/icons-material/Update';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 var email
 const UserDash = () => {
-
+  var navigate = useNavigate()
+  
 
 
     function isoStringToDate(isoString) {
@@ -69,6 +73,17 @@ const UserDash = () => {
       }
 
 
+      const updateValue=(val)=>{
+        console.log('up clicked')
+        console.log(val)
+        navigate("/add",{state:{val}});
+      }
+
+      const logout=()=>{
+        localStorage.setItem('email','null')
+        navigate('/')
+      }
+
 
 
   return (
@@ -79,17 +94,22 @@ const UserDash = () => {
     >
       <Grid container justifyContent="center">
         <Grid item xs={12} sm={10} md={8} lg={6}>
+        <Box sx={{ mb: 2 }}>
+            <Button variant='contained' color='warning' onClick={logout} title='Log Out'>
+              Log Out&nbsp;&nbsp;<LogoutIcon/>
+            </Button>
+          </Box>   
           <TableContainer sx={{ maxHeight: 607,minWidth:900 }}>
-            <Table stickyHeader>
-              <TableHead>
+            <Table >
+              <TableHead style={{backgroundColor:'#183e4b'}}>
                 <TableRow>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell align="center" colSpan={2}>
-                    <Button variant="contained" color="success" size="large">
-                      <Link to="/add" style={{ textDecoration: 'none', color: 'white' }}>Add</Link>
+                  <TableCell style={{color:'white'}}>Amount</TableCell>
+                  <TableCell style={{color:'white'}}>Category</TableCell>
+                  <TableCell style={{color:'white'}}>Date</TableCell>
+                  <TableCell style={{color:'white'}}>Description</TableCell>
+                  <TableCell  colSpan={2}>
+                    <Button variant="contained" color="success" title='New Expense'>
+                      <Link to="/add" style={{ textDecoration: 'none', color: 'white' }}><AddCircleIcon/></Link>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -98,18 +118,18 @@ const UserDash = () => {
               <TableBody>
                 {user_pfm.map((val, i) => (
                   <TableRow key={i}>
-                    <TableCell>{val.Amount}</TableCell>
+                    <TableCell >{val.Amount}</TableCell>
                     <TableCell>{val.Category}</TableCell>
                     <TableCell>{isoStringToDate(val.Date)}</TableCell>
                     <TableCell>{val.Description}</TableCell>
                     <TableCell>
-                      <Button variant="contained" color="primary">
-                        Update
+                      <Button variant="contained" title='Update' color="primary" onClick={() => updateValue(val)} style={{backgroundColor:'#FFCC00'}}>
+                        <UpdateIcon/>
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <Button variant="contained" color="error" onClick={() => delValue(val._id)}>
-                        Delete
+                      <Button variant="contained" title='Delete' color="error" onClick={() => delValue(val._id)}>
+                        <DeleteForeverIcon/>
                       </Button>
                     </TableCell>
                   </TableRow>

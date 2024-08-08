@@ -7,9 +7,9 @@ import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const Login = () => {
-  
-  const navigate = useNavigate();
+const Admin_login = () => {
+
+    const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem('email') !== 'null' && localStorage.getItem('email') !=='Admin') {
       navigate('/userdash')
@@ -44,7 +44,7 @@ const Login = () => {
         setAlertContent(res.data.message);
         setAlert(true);
         setAlertState(true);
-        if (res.data.message === "Login successful") {
+        if (res.data.message === "You have been logged in successfully!!!") {
           alert(res.data.message);
           if (res.data.email === 'Admin') {
             navigate('/admin_dash');
@@ -63,6 +63,8 @@ const Login = () => {
         console.log(err);
       });
   };
+
+
 
   return (
     <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh', padding: isSmallScreen ? '1rem' : '2rem' }}>
@@ -83,7 +85,7 @@ const Login = () => {
               </Alert>
             )}
           </Collapse>
-          <Typography variant={isSmallScreen ? 'h4' : 'h3'} style={{ fontFamily: 'times', paddingTop: '1rem',fontWeight:'bold' }}>Login</Typography>
+          <Typography variant={isSmallScreen ? 'h4' : 'h3'} style={{ fontFamily: 'times', paddingTop: '1rem',fontWeight:'bold' }}>Administrator Login</Typography>
           <TextField
             variant="outlined"
             label="Email"
@@ -122,21 +124,12 @@ const Login = () => {
           >
             Log In
           </Button>
-          <Grid item xs={12}>
-          <Typography variant="body2" align="center">
-            Create a new account? <a href="/signup" style={{ textDecoration: 'none', color: '#0072ff' }}>Sign Up</a>
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-        <Typography variant="body2" align="center">
-            Are you an Administrator? <a href="/admin_login" style={{ textDecoration: 'none', color: '#0072ff' }}>Log In</a>
-          </Typography>
-        </Grid>
+        
         </Paper>
         
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default Login;
+export default Admin_login

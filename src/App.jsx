@@ -9,8 +9,10 @@ import Add from './components/Add'
 import Admin_User_Manage from './components/Admin_User_Manage'
 import Admin_Expense_Manage from './components/Admin_Expense_Manage'
 import Admin_Dash from './components/Admin_Dash'
+import Update_User from './components/Update_User'
 // import Passworddots from './test/Passworddots'
-// import Signuptest1 from './test/Signuptest1'
+import Signuptest1 from './test/Signuptest1'
+import Admin_login from './components/Admin_login'
 
 function App() {
 
@@ -26,7 +28,9 @@ function App() {
         <Route path='/admin_dash' element={<Admin_Dash/>}/>
         <Route path='/admin_UM' element={<Admin_User_Manage/>}/>
         <Route path='/admin_EM' element={<Admin_Expense_Manage/>}/>
-        {/*<Route path='/test' element={<Signuptest1/>}/>*/}
+        <Route path='/updateuser' element={<Update_User/>}/>
+        <Route path='/admin_login' element={<Admin_login/>}/>
+        <Route path='/test' element={<Signuptest1/>}/>
       </Routes>
     </>
   )

@@ -1,96 +1,94 @@
-import { Grid,Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
-import { useMediaQuery } from '@mui/material';
+import { Grid, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Paper } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import 'dayjs/locale/en-gb';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
- 
-var email
+
 const Add = () => {
-  var navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state);
 
+  const [value, setValue] = useState(dayjs());
+  const [inputs, setInputs] = useState({ Amount: '', Category: '', Date: null, Description: '', Email: '' });
 
+  useEffect(() => {
+    if (location.state !== null) {
+      setInputs({
+        Amount: location.state.val.Amount,
+        Category: location.state.val.Category,
+        Date: location.state.val.Date,
+        Description: location.state.val.Description,
+        Email: location.state.val.Email,
+      });
+      setValue(dayjs(location.state.val.Date));
+    }
+  }, [location.state]);
 
-  let date = new Date()  //for update, first take date using useEffect, then add condition 
-  const [value, setValue] = useState(dayjs(date));
+  const inputHandler = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    console.log(inputs);
+  }
 
-  var [inputs, setInputs] = useState({Amount:'',Category:'',Date:null,Description:'',Email:''});
-  const inputHandler=(e)=>{
-     setInputs({...inputs,[e.target.name]:e.target.value})
-     console.log(inputs)
-   }
- 
-
-
-const addHandler=()=>{
-  try {
-    email = localStorage.getItem('email')
-   console.log("Hiiii machane 2 "+email)
-} catch (error) {
-   console.log(error)
+  const addHandler = () => {
+    if(location.state !== null){
+      inputs.Date = value;
+      axios.put("http://localhost:1880/editpfm/"+location.state.val._id,inputs)
+      .then((res)=>{
+        console.log(res)
+        alert(res.data.message)
+        if (localStorage.getItem('email')=='Admin'){
+          navigate('/admin_EM')
+        }
+        else{
+        navigate('/userdash')
+        }
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
 }
-  inputs.Email= email
-  inputs.Date= value
-  console.log(inputs);
-  axios.post("http://localhost:1880/add_pfm",inputs)
-        .then((res)=>{
-            console.log(res)
-            alert(res.data.message)
-            navigate('/userdash')
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
-
+    else{
+      try {
+        const email = localStorage.getItem('email');
+        console.log("Hiiii machane 2 " + email);
+        inputs.Email = email;
+        inputs.Date = value;
+        console.log(inputs);
+        axios.post("http://localhost:1880/add_pfm", inputs)
+          .then((res) => {
+            console.log(res);
+            alert(res.data.message);
+            if(res.data.message=="Please fill out all the fields"){
+              navigate('/add')}
+            else{
+            navigate('/userdash');}
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
       }
-
-
-//   try {
-//     email = localStorage.getItem('email')
-//    console.log("Hiiii machane 2 "+email)
-// } catch (error) {
-//    console.log(error)
-// }
-
-
-// const setDate=(value)=>{
-//        var date = ''
-//        date+=value.$D+'/'
-//       date+=((value.$M)+1)+'/'
-//       date+=value.$y
-//       console.log(date)
-//       inputs.Date=date
-    
-// }
-
-
-// const[date1,setDate] = useState('')
-// const [value,setValue] = useState(null);
-// if (value!=null){
-//     const date = []
-//     date.push(value.$D)
-//     date.push((value.$M)+1)
-//     date.push(value.$y)
-//     console.log(date)
-    
-// }
-
-
+  }
+  }
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: '15%', sm: '10%', md: '8%', lg: '5%'} }}>
-      <Grid item xs={11} sm={8} md={6} lg={4} sx={{marginTop:'2%'}}>
+    <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: '15%', sm: '10%', md: '8%', lg: '5%' } }}>
+      <Grid item xs={11} sm={8} md={6} lg={4} sx={{ marginTop: '2%' }}>
+      <Paper sx={{ backgroundColor: 'white', padding: '2rem',paddingRight:'3rem' ,borderRadius: 12, 
+          boxShadow: 50}} elevation={15}>
         <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h3" sx={{ fontFamily: 'times', mb: 3 }}>
+          <Typography variant="h3" sx={{ fontFamily: 'times', mb: 3,fontWeight:'bold'}}>
             Add New Income/Expense
           </Typography>
           <Box sx={{ mb: 3 }}>
             <TextField
-              style={{width:'32ch'}}
+              style={{ width: '32ch' }}
               variant="outlined"
               label="Amount"
               fullWidth
@@ -100,7 +98,7 @@ const addHandler=()=>{
             />
           </Box>
           <Box sx={{ mb: 3 }}>
-            <FormControl style={{width:'32ch'}}>
+            <FormControl style={{ width: '32ch' }}>
               <InputLabel id="category-select-label">Category</InputLabel>
               <Select
                 labelId="category-select-label"
@@ -122,13 +120,12 @@ const addHandler=()=>{
                 name="Date"
                 value={value}
                 onChange={(newValue) => setValue(newValue)}
-               
               />
             </LocalizationProvider>
           </Box>
           <Box sx={{ mb: 3 }}>
             <TextField
-              style={{width:'32ch'}}
+              style={{ width: '32ch' }}
               variant="outlined"
               label="Description"
               fullWidth
@@ -146,9 +143,10 @@ const addHandler=()=>{
             Confirm
           </Button>
         </Box>
+        </Paper>
       </Grid>
-    </Grid>  
+    </Grid>
   )
 }
 
-export default Add
+export default Add;

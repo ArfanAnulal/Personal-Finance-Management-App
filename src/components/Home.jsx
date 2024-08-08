@@ -10,7 +10,7 @@ const Home = () => {
         <img src={mainlogo} alt='Logo' className="logo" />
       </div>
       <div className="text-container">
-        <Typography variant='h3' className="heading">The One Stop Shop For All Your Financing Needs</Typography>
+        <Typography variant='h3' className="heading" fontFamily={'times'}>The One Stop Shop For All Your Financing Needs</Typography>
         <p className="description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at sodales orci, non congue enim. Cras eget sapien ut ligula laoreet ultricies. Suspendisse maximus ex sed imperdiet tempor. Nulla in tincidunt nunc, a vulputate neque. Mauris tellus nulla, finibus id maximus vitae, sagittis et lectus. Aliquam quis ultrices neque, sed scelerisque elit. Integer placerat sem et tempus euismod. Suspendisse blandit ullamcorper pharetra. Ut scelerisque lectus non dolor pretium sodales.
 

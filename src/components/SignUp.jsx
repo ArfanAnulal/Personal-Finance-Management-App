@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
@@ -35,12 +35,12 @@ const SignUp = () => {
       axios.post("http://localhost:1880/add_user", finalinputs)
         .then((res) => {
           console.log(res);
-          if (res.data.message === 'This email already exists') {
+          if (res.data.message === 'This email already exists, try again with a different email' || res.data.message === 'Please fill out all the fields' ) {
             alert(res.data.message);
             navigate('/signup');
           } else {
             alert(res.data.message);
-            navigate('/');
+            navigate('/login');
           }
         })
         .catch((err) => {
@@ -65,11 +65,13 @@ const SignUp = () => {
         maxWidth: '500px',
       }}>
         <Paper sx={{
-          backgroundColor: '#dcdcdc',
+          backgroundColor: 'white',
           margin: '2rem 1rem',
           padding: '2rem',
+          borderRadius: 12, 
+          boxShadow: 50
         }} elevation={15}>
-          <Typography variant={isSmallScreen ? 'h4' : 'h3'} style={{ fontFamily: 'times', visibility: 'visible' }}>Sign Up</Typography>
+          <Typography variant={isSmallScreen ? 'h4' : 'h3'} style={{ fontFamily: 'times', visibility: 'visible' ,fontWeight:'bold'}}>Sign Up</Typography>
           <br />
           <TextField
             variant='outlined'
@@ -150,7 +152,13 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
+          <Grid item xs={12}>
+          <Typography variant="body2" align="center">
+            Already have an account? <a href="/login" style={{ textDecoration: 'none', color: '#0072ff' }}>Log In</a>
+          </Typography>
+        </Grid>
         </Paper>
+    
       </div>
     </div>
   );
